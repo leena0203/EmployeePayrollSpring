@@ -7,8 +7,5 @@ public class EmployeePayrollDTO {
 	public String name;
 	@NotNull
 	public long salary;
-	@Override
-	public String toString() {
-		return "EmployeePayrollDTO [name=" + name + ", salary=" + salary + ", toString()=" + super.toString() + "]";
-	}
+	
 }
