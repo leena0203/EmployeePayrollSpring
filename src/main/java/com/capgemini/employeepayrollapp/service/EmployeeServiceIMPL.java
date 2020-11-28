@@ -1,4 +1,6 @@
 package com.capgemini.employeepayrollapp.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,10 @@ public class EmployeeServiceIMPL implements IEmployeeService{
 	@Transactional
 	public void deleteEmployeeById(Long id) {
 		employeeRepository.deleteById(id);
+	}
+	@Override
+	public List getAllEmployees() {
+		return employeeRepository.findAll();
 	}
 
 }
