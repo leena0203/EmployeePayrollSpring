@@ -20,35 +20,64 @@ import com.capgemini.employeepayrollapp.model.Employee;
 import com.capgemini.employeepayrollapp.service.EmployeeException;
 import com.capgemini.employeepayrollapp.service.IEmployeeService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/employee")
 public class EmployeePayrollController {
 	@Autowired
 	IEmployeeService empService;
+	@ApiOperation(value ="this is used for demo thing")
 	@GetMapping("/")
 	public ResponseEntity<String> getEmployeeData(){
 		return new ResponseEntity<String>("Get call success",HttpStatus.OK);
 	}
+	@ApiOperation(value = "This api is used to fetch details by empId", notes  = "Enter empId in long form", response = Employee.class)
 	@GetMapping("/get/{empId}")
 	public ResponseEntity<Employee> getEmployeeDataById(@PathVariable("empId") Long empId) throws EmployeeException{
 		Employee emp = empService.getEmployeeById(empId);
 		return new ResponseEntity<Employee>(emp,HttpStatus.OK);
 	}
+	/**
+	 * This API is creating new entry in database
+	 * @param employeeDTO
+	 * @return
+	 */
+	@ApiOperation(value ="This api is used to create")
 	@PostMapping("/create")
-	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody EmployeePayrollDTO employeeDTO){
+	public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeePayrollDTO employeeDTO){
 		Employee emp = empService.addEmployee(employeeDTO);
-		return new ResponseEntity<>(emp, HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Added",emp), HttpStatus.OK);
 	}
+	/**
+	 * This API is for updating in existing API
+	 * @param empId
+	 * @param employeeDTO
+	 * @return
+	 * @throws EmployeeException
+	 */
+	@ApiOperation(value = "This api is for updating existing entry")
 	@PutMapping("/update/{empId}")
 	public ResponseEntity<Void> updateEmployee(@PathVariable("empId") Long empId, @RequestBody EmployeePayrollDTO employeeDTO) throws EmployeeException{
 		empService.updateEmployeeById(empId, employeeDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	/**
+	 * This API is for deleting entries from database
+	 * @param empId
+	 * @return
+	 */
+	@ApiOperation(value = "Delete any entry")
 	@DeleteMapping("/delete/{empId}")
 	public ResponseEntity<String> deleteEmployeeById(@PathVariable("empId") Long empId){
 		empService.deleteEmployeeById(empId);
 		return new ResponseEntity<String>("Deleted the employee with id : "+empId, HttpStatus.OK);
 	}
+	/**
+	 * Get all employees from database
+	 * @return
+	 */
+	@ApiOperation(value = "get all entries")
 	@GetMapping("/getall")
 	public ResponseEntity<List<Employee>> getAllEmployees(){
 		List employeesList = empService.getAllEmployees();
