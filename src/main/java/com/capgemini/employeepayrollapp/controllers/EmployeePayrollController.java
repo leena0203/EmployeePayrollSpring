@@ -34,9 +34,9 @@ public class EmployeePayrollController {
 	}
 	@ApiOperation(value = "This api is used to fetch details by empId", notes  = "Enter empId in long form", response = Employee.class)
 	@GetMapping("/get/{empId}")
-	public ResponseEntity<Employee> getEmployeeDataById(@PathVariable("empId") Long empId) throws EmployeeException{
+	public ResponseEntity<ResponseDTO> getEmployeeDataById(@PathVariable("empId") Long empId) throws EmployeeException{
 		Employee emp = empService.getEmployeeById(empId);
-		return new ResponseEntity<Employee>(emp,HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Got Employee with given id",emp),HttpStatus.OK);
 	}
 	/**
 	 * This API is creating new entry in database
@@ -47,7 +47,7 @@ public class EmployeePayrollController {
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeePayrollDTO employeeDTO){
 		Employee emp = empService.addEmployee(employeeDTO);
-		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Added",emp), HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Added a new employee",emp), HttpStatus.OK);
 	}
 	/**
 	 * This API is for updating in existing API
@@ -58,9 +58,9 @@ public class EmployeePayrollController {
 	 */
 	@ApiOperation(value = "This api is for updating existing entry")
 	@PutMapping("/update/{empId}")
-	public ResponseEntity<Void> updateEmployee(@PathVariable("empId") Long empId, @RequestBody EmployeePayrollDTO employeeDTO) throws EmployeeException{
+	public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable("empId") Long empId, @RequestBody EmployeePayrollDTO employeeDTO) throws EmployeeException{
 		empService.updateEmployeeById(empId, employeeDTO);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Updated data successfully",empId), HttpStatus.OK);
 	}
 	/**
 	 * This API is for deleting entries from database
@@ -69,9 +69,9 @@ public class EmployeePayrollController {
 	 */
 	@ApiOperation(value = "Delete any entry")
 	@DeleteMapping("/delete/{empId}")
-	public ResponseEntity<String> deleteEmployeeById(@PathVariable("empId") Long empId){
+	public ResponseEntity<ResponseDTO> deleteEmployeeById(@PathVariable("empId") Long empId){
 		empService.deleteEmployeeById(empId);
-		return new ResponseEntity<String>("Deleted the employee with id : "+empId, HttpStatus.OK);
+		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Deleted the employee sucessfully",empId), HttpStatus.OK);
 	}
 	/**
 	 * Get all employees from database

@@ -1,6 +1,7 @@
 package com.capgemini.employeepayrollapp.service;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,13 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.capgemini.employeepayrollapp.employeedto.EmployeePayrollDTO;
 import com.capgemini.employeepayrollapp.model.Employee;
 import com.capgemini.employeepayrollapp.repository.IEmployeeRepository;
+
 @Service
 public class EmployeeServiceIMPL implements IEmployeeService{
 	@Autowired
 	IEmployeeRepository employeeRepository;
+	@Autowired
+	private ModelMapper mapper;
 	@Override
 	public Employee addEmployee(EmployeePayrollDTO employeeDTO) {
-		Employee emp = new Employee(employeeDTO);
+		//Employee emp =new Employee(employeeDTO);
+		Employee emp = mapper.map(employeeDTO, Employee.class);
 		emp = employeeRepository.save(emp);
 		return emp;
 	}

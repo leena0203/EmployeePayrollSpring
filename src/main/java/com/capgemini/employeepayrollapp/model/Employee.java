@@ -16,10 +16,16 @@ public @Data class Employee {
 	private Long id;
 	private String name;
 	private long salary;
+	private String department;
+	private String gender;
+	private String image;
 	public Employee() {}
 	public Employee(EmployeePayrollDTO employeeDTO) {
 		this.name = employeeDTO.name;
 		this.salary = employeeDTO.salary;
+		this.department = employeeDTO.department;
+		this.gender = employeeDTO.gender;
+		this.image = employeeDTO.image;
 	}
 	
 }
