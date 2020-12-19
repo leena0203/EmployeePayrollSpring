@@ -1,8 +1,14 @@
 package com.capgemini.employeepayrollapp.model;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.capgemini.employeepayrollapp.employeedto.EmployeePayrollDTO;
@@ -16,17 +22,15 @@ public @Data class Employee {
 	private Long id;
 	private String name;
 	private long salary;
-	private String department;
 	private String gender;
-	private String image;
+	private String profile;
+	private String startDate;
+	private String notes;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Department> department = new ArrayList<>();
 	public Employee() {}
-	public Employee(EmployeePayrollDTO employeeDTO) {
-		this.name = employeeDTO.name;
-		this.salary = employeeDTO.salary;
-		this.department = employeeDTO.department;
-		this.gender = employeeDTO.gender;
-		this.image = employeeDTO.image;
-	}
+	
+	
 	
 }
 

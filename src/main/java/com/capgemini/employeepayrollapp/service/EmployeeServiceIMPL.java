@@ -19,9 +19,18 @@ public class EmployeeServiceIMPL implements IEmployeeService{
 	@Override
 	public Employee addEmployee(EmployeePayrollDTO employeeDTO) {
 		//Employee emp =new Employee(employeeDTO);
-		Employee emp = mapper.map(employeeDTO, Employee.class);
-		emp = employeeRepository.save(emp);
-		return emp;
+		System.out.println(employeeDTO);
+		try{
+			Employee emp = mapper.map(employeeDTO, Employee.class);
+		//	emp.getDepartment().addAll(emp.getDepartment());
+			System.out.println(emp.getDepartment());
+			emp = employeeRepository.save(emp);
+			return emp;
+		}
+		catch(Exception e){
+			System.out.println("e" +e);
+		}
+		return null;
 	}
 	@Override
 	public Employee getEmployeeById(Long id) throws EmployeeException {
@@ -41,6 +50,7 @@ public class EmployeeServiceIMPL implements IEmployeeService{
 	@Override
 	@Transactional
 	public void deleteEmployeeById(Long id) {
+		System.out.println(id);
 		employeeRepository.deleteById(id);
 	}
 	@Override
