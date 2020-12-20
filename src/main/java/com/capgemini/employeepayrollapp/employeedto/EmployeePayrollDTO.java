@@ -14,9 +14,9 @@ public @Data class EmployeePayrollDTO {
 	public String name;
 	@Min(value = 10, message = "Salary should be greater than 10")
 	public long salary;
-	public List<DepartmentDTO> department;
+	public List<Department> department;
 	public String profile;
 	public String gender;
 	public String startDate;
-public String notes;
+	public String notes;
 }

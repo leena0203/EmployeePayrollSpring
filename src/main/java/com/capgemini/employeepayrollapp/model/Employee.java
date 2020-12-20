@@ -26,7 +26,7 @@ public @Data class Employee {
 	private String profile;
 	private String startDate;
 	private String notes;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<Department> department = new ArrayList<>();
 	public Employee() {}
 	
