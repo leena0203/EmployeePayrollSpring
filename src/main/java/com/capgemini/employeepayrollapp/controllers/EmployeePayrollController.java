@@ -60,7 +60,7 @@ public class EmployeePayrollController {
 	 */
 	@ApiOperation(value = "This api is for updating existing entry")
 	@PutMapping("/update/{empId}")
-	public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable("empId") Long empId, @RequestBody EmployeePayrollDTO employeeDTO) throws EmployeeException{
+	public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable("empId") Long empId, @RequestBody @Valid EmployeePayrollDTO employeeDTO) throws EmployeeException{
 		empService.updateEmployeeById(empId, employeeDTO);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Updated data successfully",empId), HttpStatus.OK);
 	}

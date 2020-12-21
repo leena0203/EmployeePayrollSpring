@@ -39,12 +39,14 @@ public class EmployeeServiceIMPL implements IEmployeeService{
 	@Override
 	public void updateEmployeeById(Long id, EmployeePayrollDTO employeeDTO) throws EmployeeException {
 		Employee emp = getEmployeeById(id);
-		if(employeeDTO.name != null) {
-			emp.setName(employeeDTO.name);
-		}
-		if(employeeDTO.salary != 0.0) {
-			emp.setSalary(employeeDTO.salary);
-		}
+//		if(employeeDTO.name != null) {
+//			emp.setName(employeeDTO.name);
+//		}
+//		if(employeeDTO.salary != 0.0) {
+//			emp.setSalary(employeeDTO.salary);
+//		}
+		mapper.map(employeeDTO, emp);
+		System.out.println(emp);
 		employeeRepository.save(emp);
 	}
 	@Override
