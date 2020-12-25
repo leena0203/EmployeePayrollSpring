@@ -35,7 +35,7 @@ public class EmployeePayrollController {
 		return new ResponseEntity<String>("Get call success",HttpStatus.OK);
 	}
 	@ApiOperation(value = "This api is used to fetch details by empId", notes  = "Enter empId in long form", response = Employee.class)
-	@GetMapping("/get/{empId}")
+	@GetMapping("/{empId}")
 	public ResponseEntity<ResponseDTO> getEmployeeDataById(@PathVariable("empId") Long empId) throws EmployeeException{
 		Employee emp = empService.getEmployeeById(empId);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Got Employee with given id",emp),HttpStatus.OK);
@@ -46,7 +46,7 @@ public class EmployeePayrollController {
 	 * @return
 	 */
 	@ApiOperation(value ="This api is used to create")
-	@PostMapping("/create")
+	@PostMapping("/")
 	public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeePayrollDTO employeeDTO){
 		Employee emp = empService.addEmployee(employeeDTO);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Added a new employee",emp), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class EmployeePayrollController {
 	 * @throws EmployeeException
 	 */
 	@ApiOperation(value = "This api is for updating existing entry")
-	@PutMapping("/update/{empId}")
+	@PutMapping("/{empId}")
 	public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable("empId") Long empId, @RequestBody @Valid EmployeePayrollDTO employeeDTO) throws EmployeeException{
 		empService.updateEmployeeById(empId, employeeDTO);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Updated data successfully",empId), HttpStatus.OK);
@@ -70,7 +70,7 @@ public class EmployeePayrollController {
 	 * @return
 	 */
 	@ApiOperation(value = "Delete any entry")
-	@DeleteMapping("/delete/{empId}")
+	@DeleteMapping("/{empId}")
 	public ResponseEntity<ResponseDTO> deleteEmployeeById(@PathVariable("empId") Long empId){
 		empService.deleteEmployeeById(empId);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO("Deleted the employee sucessfully",empId), HttpStatus.OK);
@@ -80,7 +80,7 @@ public class EmployeePayrollController {
 	 * @return
 	 */
 	@ApiOperation(value = "get all entries")
-	@GetMapping("/getall")
+	@GetMapping("/all")
 	public ResponseEntity<List<Employee>> getAllEmployees(){
 		List employeesList = empService.getAllEmployees();
 		return new ResponseEntity<>(employeesList, HttpStatus.OK);
