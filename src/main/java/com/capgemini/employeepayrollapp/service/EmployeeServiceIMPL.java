@@ -37,6 +37,7 @@ public class EmployeeServiceIMPL implements IEmployeeService{
 	@Override
 	public void updateEmployeeById(Long id, EmployeePayrollDTO employeeDTO) throws EmployeeException {
 		Employee emp = getEmployeeById(id);
+		emp.getDepartment().clear();
 		mapper.map(employeeDTO, emp);
 		System.out.println(emp);
 		employeeRepository.save(emp);

@@ -20,7 +20,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,9 @@ public class Department {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "department")
 	List<Employee> employee = new ArrayList<>();
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", department=" + department + "]";
+	}
 
 }
